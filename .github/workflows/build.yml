@@ -54,10 +54,10 @@ jobs:
     - uses: actions/setup-go@v3
       with:
         go-version: ${{ matrix.go }}
-    - name: Generate TeX file for resume
-      run: |
-        cd resume
-        go run main.go
+    #- name: Generate TeX file for resume
+    #  run: |
+    #    cd resume
+    #    go run main.go
 
     - uses: actions/upload-artifact@v3
       with:

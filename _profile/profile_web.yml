@@ -412,7 +412,7 @@ publications:
           # webPage:
           #   slug: levelset-phasechange
           #   detail: publications/levelset-phasechange.md
-        render: true
+      render: true
     - value:
         type: article #Book, in conference, in proceedings, thesis
         author: "**Rohit Mishra**, Sarvesh Mayivahanan, Dorrin Jarrahbashi"

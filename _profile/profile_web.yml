@@ -25,7 +25,7 @@ basics:
     value: Rohit Mishra
     render: true
   label:
-    value: PhD Candidate
+    value: Senior R&D Engineer
     render: true
   image:
     value: profilePic.jpeg # Upload later

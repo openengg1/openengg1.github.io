@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node-version: [16]
+        node-version: ['16.x']
         go: ['1.18']
 
     runs-on: ${{ matrix.os }}
@@ -27,13 +27,13 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: yarn install and build with spa-github-pages
+      env:
+        NODE_OPTIONS: --openssl-legacy-provider
       run: |
         cp spa-github-pages/index.html public/index.html
         yarn install
         yarn run build
         cp spa-github-pages/404.html build/
-      env:
-        NODE_OPTIONS: --openssl-legacy-provider
 
     - uses: actions/upload-artifact@v4
       with:
@@ -49,8 +49,6 @@ jobs:
         yarn run build:resume-json
         cd resume
         go run main.go
-      env:
-        NODE_OPTIONS: --openssl-legacy-provider
 
     - uses: actions/upload-artifact@v4
       with:
@@ -62,7 +60,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest]
-        node-version: [16]
+        node-version: ['16.x']
         go: ['1.18']
 
     runs-on: ${{ matrix.os }}
@@ -76,11 +74,11 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: yarn install and build
+      env:
+        NODE_OPTIONS: --openssl-legacy-provider
       run: |
         yarn install
         yarn run build
-      env:
-        NODE_OPTIONS: --openssl-legacy-provider
 
     - uses: actions/setup-go@v5
       with:
@@ -90,8 +88,6 @@ jobs:
         yarn run build:resume-json
         cd resume
         go run main.go
-      env:
-        NODE_OPTIONS: --openssl-legacy-provider
 
     - uses: actions/upload-artifact@v4
       with:

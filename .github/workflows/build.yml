@@ -41,7 +41,6 @@ jobs:
     - name: npm install and build with spa-github-pages
       run: |
         cp spa-github-pages/index.html public/index.html
-        npm install --global yarn
         yarn install
         yarn run build
         cp spa-github-pages/404.html build/
@@ -86,7 +85,6 @@ jobs:
     # No need to build here, all that is needed is profile_resume.json.
     - name: npm install and build
       run: |
-        npm install --global yarn
         yarn install
         yarn run build
 
@@ -236,7 +234,6 @@ jobs:
 
     - name: npm install and build
       run: |
-        npm install --global yarn
         yarn install
         yarn run build
 

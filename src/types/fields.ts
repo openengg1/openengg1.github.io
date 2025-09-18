@@ -1,42 +1,64 @@
-export interface Field {
-  value: string;
-  render: boolean;
+export interface Meta {
+  showPageNumbers?: boolean;
+  hideSectionLines?: boolean;
+  pantherHeaderNameFontSize?: number;
+  pantherHeaderColumnOneWidth?: number;
+  pantherHeaderColumnTwoWidth?: number;
 }
 
-export interface Location {
-  address: string;
-  postalCode: string;
-  city: string;
-  countryName: string;
-  region: string;
+export interface Theme {
+  value: string;
+  render: boolean;
+  meta?: Meta;
+}
+
+export interface Analytics {
+  ga: {
+    trackingId: string;
+    enable: boolean;
+  };
+}
+
+export interface ConfigMeta {
+  showResumeLink: boolean;
+  resume: string;
+}
+
+export interface Config {
+  homepage: string;
+  theme: Theme;
+  analytics: Analytics;
+  meta: ConfigMeta;
 }
 
 export interface SocialProfile {
-  network: string;
-  username?: string;
-  url?: string;
-  render: boolean;
+  value: {
+    network: string;
+    render: boolean;
+    url?: string;
+    username?: string;
+  };
 }
 
 export interface Basics {
-  name: Field;
-  label: Field;
-  image: Field;
-  email: Field;
-  phone: Field;
-  url: Field;
-  summary: {
-    label: string;
-    value: string;
-    render: boolean;
-  };
+  name: { value: string; render: boolean };
+  label: { value: string; render: boolean };
+  image: { value: string; render: boolean };
+  email: { value: string; render: boolean };
+  phone: { value: string; render: boolean };
+  url: { value: string; render: boolean };
+  summary: { label: string; value: string; render: boolean };
   location: {
-    value: Location;
+    value: {
+      address: string;
+      postalCode: string;
+      city: string;
+      countryName: string;
+      region: string;
+    };
     render: boolean;
   };
-  profiles: {
-    value: SocialProfile;
-  }[];
+  profiles: SocialProfile[];
 }
 
 export interface Work {
@@ -54,8 +76,8 @@ export interface Work {
       thumbnail: string;
       active: boolean;
       highlights: {
-        brief?: string;
         detail: string;
+        brief?: string;
       }[];
       render: boolean;
     };
@@ -92,7 +114,7 @@ export interface Project {
       note: string;
       thumbnail: string;
       highlights: {
-        brief?: string;
+        brief: string;
         detail: string;
       }[];
       keywords: string[];
@@ -151,12 +173,14 @@ export interface Gallery {
   list: {
     value: {
       type: string;
-      src: string;
-      caption: {
+      src?: string;
+      caption?: {
         title: string;
         description: string;
       };
       render: boolean;
+      platform?: string;
+      videoId?: string;
     };
   }[];
 }
@@ -228,31 +252,6 @@ export interface Custom {
   render: boolean;
 }
 
-export interface Config {
-  homepage: string;
-  theme: {
-    value: string;
-    render: boolean;
-    meta: {
-      showPageNumbers: boolean;
-      hideSectionLines: boolean;
-      pantherHeaderNameFontSize: number;
-      pantherHeaderColumnOneWidth: number;
-      pantherHeaderColumnTwoWidth: number;
-    };
-  };
-  analytics: {
-    ga: {
-      trackingId: string;
-      enable: boolean;
-    };
-  };
-  meta: {
-    showResumeLink: boolean;
-    resume: string;
-  };
-}
-
 export interface SlugMap {
   [key: string]: {
     [key: string]: {
@@ -261,16 +260,17 @@ export interface SlugMap {
   };
 }
 
-export type ProfileField =
-  | Work
-  | Education
-  | Project
-  | Publication
-  | Award
-  | Gallery
-  | Skill
-  | Language
-  | Interest
-  | Reference
-  | Custom;
+export enum ProfileField {
+  Work = 'work',
+  Education = 'education',
+  Projects = 'projects',
+  Publications = 'publications',
+  Awards = 'awards',
+  Gallery = 'gallery',
+  Skills = 'skills',
+  Languages = 'languages',
+  Interests = 'interests',
+  References = 'references',
+  Custom = 'custom',
+}
 

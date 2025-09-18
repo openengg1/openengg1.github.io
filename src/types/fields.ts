@@ -152,6 +152,9 @@ export enum PublicationTypes {
   Thesis = 'thesis',
 }
 
+// Added this alias to fix the import error in the component
+export const ThesisTypes = PublicationTypes;
+
 export interface Publication {
   label: string;
   rank: number;

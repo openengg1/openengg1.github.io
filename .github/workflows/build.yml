@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node-version: ['16.x']
+        node-version: ['14.x']
         go: ['1.18']
 
     runs-on: ${{ matrix.os }}
@@ -30,7 +30,7 @@ jobs:
       run: |
         cp spa-github-pages/index.html public/index.html
         yarn install
-        NODE_OPTIONS=--openssl-legacy-provider yarn run build
+        yarn run build
         cp spa-github-pages/404.html build/
 
     - uses: actions/upload-artifact@v4
@@ -44,7 +44,7 @@ jobs:
         
     - name: Generate TeX file for resume
       run: |
-        NODE_OPTIONS=--openssl-legacy-provider yarn run build:resume-json
+        yarn run build:resume-json
         cd resume
         go run main.go
 
@@ -58,7 +58,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest]
-        node-version: ['16.x']
+        node-version: ['14.x']
         go: ['1.18']
 
     runs-on: ${{ matrix.os }}
@@ -74,14 +74,14 @@ jobs:
     - name: yarn install and build
       run: |
         yarn install
-        NODE_OPTIONS=--openssl-legacy-provider yarn run build
+        yarn run build
 
     - uses: actions/setup-go@v5
       with:
         go-version: ${{ matrix.go }}
     - name: Generate TeX file for resume
       run: |
-        NODE_OPTIONS=--openssl-legacy-provider yarn run build:resume-json
+        yarn run build:resume-json
         cd resume
         go run main.go
 

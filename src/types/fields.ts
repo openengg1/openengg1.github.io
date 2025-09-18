@@ -152,8 +152,6 @@ export enum PublicationTypes {
   Thesis = 'thesis',
 }
 
-export const ThesisTypes = PublicationTypes;
-
 export interface Publication {
   label: string;
   rank: number;
@@ -264,7 +262,7 @@ export interface Reference {
   }[];
 }
 
-export interface Custom {
+export interface CustomSection {
   label: string;
   value?: string;
   webPage?: {
@@ -295,4 +293,3 @@ export enum ProfileField {
   References = 'references',
   Custom = 'custom',
 }
-

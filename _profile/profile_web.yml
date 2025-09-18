@@ -18,8 +18,9 @@ config:
       enable: false
   meta:
     showResumeLink: true
-    # below keys are used by web parser but not by resume parser
-    resume: resume.pdf # path (relative to _profile/files/) for user submitted resume
+    # This path is relative to the root of the deployed website.
+    # The workflow places the generated PDF at files/resume/resume.pdf.
+    resume: files/resume/resume.pdf
 basics:
   name:
     value: Rohit Mishra
@@ -55,24 +56,24 @@ basics:
     - value:
         network: googlescholar
         url: https://scholar.google.com/citations?user=Zfx-VCcAAAAJ&hl=en
-      render: true
+        render: true
     - value: # if username is provided but not url, then we generate the url.
         network: github
         username: openengg1
-      render: true
+        render: true
     - value:
         network: linkedin
         url: https://www.linkedin.com/in/rohit-mishra-ab79428b/ # Later
-      render: true
+        render: true
     - value:
         network: twitter
         username: acrlakshman
         url: https://twitter.com/acrlakshman
-      render: false
+        render: false
     - value:
         network: vimeo
         url: https://vimeo.com/user24179204
-      render: false
+        render: false
 work:
   label: Experience
   rank: 2
@@ -91,35 +92,35 @@ work:
           - detail: Developed multi-phase/multi-component dynamic mesh code in OpenFOAM for simulating internal nozzle (Funding - Cummins Inc.)
           - brief: "" #Bold
             detail: Developing real gas combustion solver based on NGA for simulating sCO2 oxy-combustion
-      render: true
+        render: true
     - value:
         name: Argonne National Laboratory
         location: Chicago, IL
         brief: ""
-        position: Research Aide  
+        position: Research Aide
         url: "anl.gov"
         startDate: "01-2022" # string
         endDate: "05-2022" # string
         active: true
         highlights:
-          - detail:  Benchmarked HRIC and PLIC VoF simulations in CONVERGE (CFD tool) and created gold standard spray data.  
+          - detail: Benchmarked HRIC and PLIC VoF simulations in CONVERGE (CFD tool) and created gold standard spray data.
           - brief: "" #Bold
             detail: Implemented surface compression UDF for HRIC simulations. Suggested tan-hyperbolic improvement for compression term to avoid spurious oscillations.
-      render: true      
+        render: true
     - value:
         name: University of Wisconsin
         location: Madison, WI
         brief: ""
-        position: Research Assistant  
+        position: Research Assistant
         url: "wisc.edu"
         startDate: "2016" # string
         endDate: "2018" # string
         active: true
         highlights:
-          - detail: Evaluated surface-film models available in OpenFOAM and compared it by implementing new models in LES dynamic structure framework 
+          - detail: Evaluated surface-film models available in OpenFOAM and compared it by implementing new models in LES dynamic structure framework
           - brief: "" #Bold
-            detail: Implemented and tested three widely used surface film models. The surface film models were implemented with an in-house LES dynamic structure turbulence tuned for spray breakup and atomization. 
-      render: true
+            detail: Implemented and tested three widely used surface film models. The surface film models were implemented with an in-house LES dynamic structure turbulence tuned for spray breakup and atomization.
+        render: true
 education:
   label: Education
   rank: 1
@@ -134,14 +135,14 @@ education:
         gradeTotal: 4.0
         courses:
           - AERO-641 #Later
-      render: true
+        render: true
     - value:
         institution: University of Wisconsin Madison
         url: https://wisc.edu
         major: Mechanical Engineering
         minor: ''
         degree: M.S.
-      render: true
+        render: true
 projects:
   label: "Projects"
   rank: 3
@@ -150,7 +151,7 @@ projects:
     - value:
         name: Degassing and cavitation in diesel injector nozzles
         description: "Developed OpenFOAM code for 3 component internal nozzle simulation predicting degassing and cavitation from inception in a dynamic mesh environment"
-        team: "with Dr. Dorrin Jarrahbashi" # [Lakshman Anumolu](//lakshmananumolu.com)_" 
+        team: "with Dr. Dorrin Jarrahbashi" # [Lakshman Anumolu](//lakshmananumolu.com)_"
         note: ""
         thumbnail: Figure-10b.jpg #Later
         highlights:
@@ -164,19 +165,19 @@ projects:
         startDate: '2020' # string
         endDate: Present
         # If webPage is not provided, then url will be linked in the homepage for this project
-        url:  ' ' #'https://rohitmishranitrr.github.io/pseudoCavitation'
+        url: ' ' #'https://rohitmishranitrr.github.io/pseudoCavitation'
         roles:
           - Architect
           - Developer
         type: application
         webPage:
-          slug: degassing #name 
+          slug: degassing #name
           detail: project/degassing.md # if the content is empty, "url" will be linked in the homepage for the project
-      render: true
+        render: true
     - value:
         name: Evaluation of surface film models for engine simulations
         description: "Developed OpenFOAM code to compare widely used surface-film models that simulates the drop-wall interaction of an impinging spray in a combustion chamber"
-        team: "with Dr. Christopher J. Rutland" # [Lakshman Anumolu](//lakshmananumolu.com)_" 
+        team: "with Dr. Christopher J. Rutland" # [Lakshman Anumolu](//lakshmananumolu.com)_"
         note: ""
         thumbnail: surface_film2.PNG
         highlights:
@@ -198,11 +199,11 @@ projects:
         webPage:
           slug: surfaceFilm
           detail: project/surfaceFilm.md # if the content is empty, "url" will be linked in the homepage for the project
-      render: true
+        render: true
     - value:
         name: Unsupervised clustering Machine learning for flamelet tables
         description: "Implemented unsupervised clustering (Gaussian Mixture Model) as a gating network for learning flamelet tables. Created a new recursive unsupervised clustering framework"
-        team: "with Dr. Dorrin Jarrahbashi (mentored undergraduate student) Sarvesh Mayilvahanan" # [Lakshman Anumolu](//lakshmananumolu.com)_" 
+        team: "with Dr. Dorrin Jarrahbashi (mentored undergraduate student) Sarvesh Mayilvahanan" # [Lakshman Anumolu](//lakshmananumolu.com)_"
         note: ""
         thumbnail: MLflamelet.PNG #Later
         highlights:
@@ -213,417 +214,4 @@ projects:
           - website
           - YAML
           - markdown
-        startDate: '2020' # string
-        endDate: Present
-        # If webPage is not provided, then url will be linked in the homepage for this project
-        url:  ' ' #'https://rohitmishranitrr.github.io/pseudoCavitation'
-        roles:
-          - Architect
-          - Developer
-        type: application
-        webPage:
-          slug: MLcombustion #name 
-          detail: project/MLcombustion.md # if the content is empty, "url" will be linked in the homepage for the project
-      render: true  
-    - value:
-        name: Supercritical oxy-combustion modeling with CO2 dilution
-        description: "Working on a finite difference code to model supercritical sCO2 combustion"
-        team: "with Dr. Dorrin Jarrahbashi" # [Lakshman Anumolu](//lakshmananumolu.com)_" 
-        note: ""
-        thumbnail: n2Supercritical.PNG #Later
-        highlights:
-          - brief: ""
-            detail: Website and resume generator via YAML
-        keywords:
-          - resume
-          - website
-          - YAML
-          - markdown
-        startDate: '2020' # string
-        endDate: Present
-        # If webPage is not provided, then url will be linked in the homepage for this project
-        url:  ' ' #'https://rohitmishranitrr.github.io/pseudoCavitation'
-        roles:
-          - Architect
-          - Developer
-        type: application
-        webPage:
-          slug: oxyCombustion #name 
-          detail: project/oxyCombustion.md # if the content is empty, "url" will be linked in the homepage for the project
-      render: true
-    - value:
-        name: Implementing non-Newtonian effects for polymers in porous media solver
-        description: "Developed a new empirical model for shear thinning behavior of polymer in enhanced oil recovery"
-        team: "with Dr. Prabir Daripa" # [Lakshman Anumolu](//lakshmananumolu.com)_" 
-        note: ""
-        thumbnail: EOR.PNG #Later
-        highlights:
-          - brief: ""
-            detail: Website and resume generator via YAML
-        keywords:
-          - resume
-          - website
-          - YAML
-          - markdown
-        startDate: '2020' # string
-        endDate: Present
-        # If webPage is not provided, then url will be linked in the homepage for this project
-        url:  ' ' #'https://rohitmishranitrr.github.io/pseudoCavitation'
-        roles:
-          - Architect
-          - Developer
-        type: application
-        webPage:
-          slug: EOR #name 
-          detail: project/EOR.md # if the content is empty, "url" will be linked in the homepage for the project
-      render: true
-    - value:
-        name: SL-GPS scheme for reducing chemical kinetics using artificial neural networks
-        description: "Developed a new adaptive chemistry reduction scheme based on existing Global Pathway Selection scheme. The new scheme makes adaptive GPS runs to create a dataset that is used to train an Artificial Neural Network."
-        team: "with Dr. Jarrahbashi and (mentored undergraduate student) Aaron Nelson" # [Lakshman Anumolu](//lakshmananumolu.com)_" 
-        note: ""
-        thumbnail: CNF1.png #Later
-        highlights:
-          - brief: ""
-            detail: Website and resume generator via YAML
-        keywords:
-          - resume
-          - website
-          - YAML
-          - markdown
-        startDate: '2020' # string
-        endDate: Present
-        # If webPage is not provided, then url will be linked in the homepage for this project
-        url:  ' ' #'https://rohitmishranitrr.github.io/pseudoCavitation'
-        roles:
-          - Architect
-          - Developer
-        type: application
-        webPage:
-          slug: SL-GPS #name 
-          detail: project/SL_GPS.md # if the content is empty, "url" will be linked in the homepage for the project
-      render: true
-    - value:
-        name: Numerically predicting surface film formation for supercritical CO2-assisted atomization for deposition of cellulose nanocrystal
-        description: "Mentored graduate student to run spray-film simulations (using OF surface film code developed earlier) to study cellulose deposition"
-        team: "with Dr. Jarrahbashi, Dr. Asadi, Dr. Shariatnia and (mentored graduate student) Prajesh Jangale" # [Lakshman Anumolu](//lakshmananumolu.com)_" 
-        note: ""
-        thumbnail: cellulose.PNG #Later
-        highlights:
-          - brief: ""
-            detail: Website and resume generator via YAML
-        keywords:
-          - resume
-          - website
-          - YAML
-          - markdown
-        startDate: '2020' # string
-        endDate: Present
-        # If webPage is not provided, then url will be linked in the homepage for this project
-        url:  ' ' #'https://rohitmishranitrr.github.io/pseudoCavitation'
-        roles:
-          - Architect
-          - Developer
-        type: application
-        webPage:
-          slug: cellulose #name 
-          detail: project/cellulose.md # if the content is empty, "url" will be linked in the homepage for the project
-      render: true
-    - value:
-        name: HRIC and PLIC VoF simulations for sub-critical spray benchmarking
-        description: "Worked on the CRADA project to generate gold standard spray data to understand near injector spray dynamics"
-        team: "with Dr. Gina Magnotti" # [Lakshman Anumolu](//lakshmananumolu.com)_" 
-        note: ""
-        thumbnail: hric.png #Later
-        highlights:
-          - brief: ""
-            detail: Website and resume generator via YAML
-        keywords:
-          - resume
-          - website
-          - YAML
-          - markdown
-        startDate: '2020' # string
-        endDate: Present
-        # If webPage is not provided, then url will be linked in the homepage for this project
-        url:  ' ' #'https://rohitmishranitrr.github.io/pseudoCavitation'
-        roles:
-          - Architect
-          - Developer
-        type: application
-        webPage:
-          slug: vof #name 
-          detail: project/vof.md # if the content is empty, "url" will be linked in the homepage for the project
-      render: true
-    - value:
-        name: Improving Fire-Smoke render in Blender 3D animation tool
-        description: "Improving Blender animation code to implement realistic fluids physics for smoke simulation"
-        team: "" # [Lakshman Anumolu](//lakshmananumolu.com)_" 
-        note: ""
-        thumbnail: blender1.jpeg #Later
-        highlights:
-          - brief: ""
-            detail: Website and resume generator via YAML
-        keywords:
-          - resume
-          - website
-          - YAML
-          - markdown
-        startDate: '2020' # string
-        endDate: Present
-        # If webPage is not provided, then url will be linked in the homepage for this project
-        url:  ' ' #'https://rohitmishranitrr.github.io/pseudoCavitation'
-        roles:
-          - Architect
-          - Developer
-        type: application
-        webPage:
-          slug: blender #name 
-          detail: project/blender1.md # if the content is empty, "url" will be linked in the homepage for the project
-      render: true
-awards:
-  label: Awards & Achievements
-  rank: 11
-  list:
-    - value:
-        title: Pioneer National Resources Fellowship
-        date: 2021-2022, 2022-2023
-        awarder: Pioneer National Resources
-        summary: In recognition of academic and research achievement and leadership skills
-      render: true
-publications:
-  # Format follows: http://web.mit.edu/rsi/www/pdfs/bibtex-format.pdf
-  label: Publications
-  rank: 4
-  maxItemsToRender: 7 # If this is not provided, it defaults to 5 (src/config.ts)
-  list:
-    - value:
-          type: article #Book, in conference, in proceedings, thesis
-          author: "Prabir Daripa, **Rohit Mishra**"
-          title: "Modeling shear thinning polymer flooding using a dynamic viscosity model"
-          journal: Physics of Fluids, AIP
-          volume: 0
-          year: 2023
-          number: 0
-          pages: ''
-          thumbnail: EOR.PNG
-          # If webPage is not provided, then url will be linked in the homepage for this project
-          url: 'https://pubs.aip.org/aip/pof/article/35/4/046606/2887188/Modeling-shear-thinning-polymer-flooding-using-a' # add later
-          # webPage:
-          #   slug: levelset-phasechange
-          #   detail: publications/levelset-phasechange.md
-      render: true
-    - value:
-        type: article #Book, in conference, in proceedings, thesis
-        author: "**Rohit Mishra**, Sarvesh Mayivahanan, Dorrin Jarrahbashi"
-        title: "Hybrid Unsupervised Cluster-wise Regression Approach for Representing the Flamelet Tables"
-        journal: Energy And Fuels, Elsevier
-        volume: 0
-        year: 2023
-        number: 0
-        pages: ''
-        thumbnail: hybThumb.jpeg
-        # If webPage is not provided, then url will be linked in the homepage for this project
-        url: 'https://pubs.acs.org/doi/full/10.1021/acs.energyfuels.2c03766' # add later
-        # webPage:
-        #   slug: levelset-phasechange
-        #   detail: publications/levelset-phasechange.md
-      render: true
-    - value:
-        type: article #Book, in conference, in proceedings, thesis
-        author: "Shrabanti Roy, **Rohit Mishra**, Dorrin Jarrahbashi, Omid Askari"
-        title: "Reduced ethanol skeleton mechanism for multi-dimensional engine simulation"
-        journal: Journal of Energy Institute, Elsevier
-        volume: 0
-        year: 2023
-        number: 0
-        pages: ''
-        thumbnail: ethanolThumb.PNG
-        # If webPage is not provided, then url will be linked in the homepage for this project
-        url: 'https://www.sciencedirect.com/science/article/abs/pii/S1743967122001866' # add later
-        # webPage:
-        #   slug: levelset-phasechange
-        #   detail: publications/levelset-phasechange.md
-      render: true
-    - value:
-        type: article #Book, in conference, in proceedings, thesis
-        author: "**Rohit Mishra**, Aaron Nelson, Dorrin Jarrahbashi"
-        title: "Adaptive global pathway selection using artificial neural networks: A-priori study"
-        journal: Combustion and Flame, Elsevier
-        volume: 0
-        year: 2022
-        number: 0
-        pages: ''
-        thumbnail: CNF1.png
-        # If webPage is not provided, then url will be linked in the homepage for this project
-        url: 'https://www.sciencedirect.com/science/article/pii/S0010218022002942?dgcid=coauthor' # add later
-        # webPage:
-        #   slug: levelset-phasechange
-        #   detail: publications/levelset-phasechange.md
-      render: true
-    - value:
-        type: article #Book, in conference, in proceedings, thesis
-        author: "Shadi Shariatnia, Prajesh Jangale, **Rohit Mishra**, Amir Asadi, Dorrin Jarrahbashi"
-        title: "Supercritical CO2-assisted atomization for deposition of cellulose nanocrystals: an experimental and computational study"
-        journal: Cellulose, Springer
-        volume: 0
-        year: 2021
-        number: 0
-        pages: ''
-        thumbnail: cellulose.PNG
-        # If webPage is not provided, then url will be linked in the homepage for this project
-        url: 'https://link.springer.com/article/10.1007/s10570-021-04368-7' # add later
-        # webPage:
-        #   slug: levelset-phasechange
-        #   detail: publications/levelset-phasechange.md
-      render: true
-    - value:
-        type: article #Book, in conference, in proceedings, thesis
-        author: "**Rohit Mishra**, Daniel Jiwani, Dorrin Jarrahbashi"
-        title: "Three-Component Multi-Fluid Modeling of Pseudo-Cavitation Phenomenon in Diesel Injector Nozzles"
-        journal: International Journal of Engine Research, SAGE Publications
-        volume: 0
-        year: 2021
-        number: 0
-        pages: ''
-        thumbnail: Figure-10b.jpg
-        # If webPage is not provided, then url will be linked in the homepage for this project
-        url: 'https://journals.sagepub.com/doi/10.1177/1468087421993348' # add later
-        # webPage:
-        #   slug: levelset-phasechange
-        #   detail: publications/levelset-phasechange.md
-      render: true
-    - value:
-        type: article #Book, in conference, in proceedings, thesis
-        author: "**Rohit Mishra**, Christopher J. Rutland"
-        title: "Evaluating Surface Film Models for Multi-Dimensional Modeling of Spray-Wall Interaction"
-        journal: SAE World Congress, Conference paper
-        volume: 0
-        year: 2019
-        number: 0
-        pages: ''
-        thumbnail: surface_film2.PNG
-        # If webPage is not provided, then url will be linked in the homepage for this project
-        url: 'https://saemobilus.sae.org/content/2019-01-0209' # add later
-        # webPage:
-        #   slug: levelset-phasechange
-        #   detail: publications/levelset-phasechange.md
-      render: true
-gallery:
-  label: Gallery
-  rank: 5
-  list:
-    - value:
-        type: image
-        src: Figure-10b.jpg
-        caption:
-          title: Air and vapor bubbles in a diesel injector nozzle
-          description: "This picture shows the simulation results for internal nozzle with blue representing air bubbles and red shows the vapor bubbles simultaneously forming in regions of low pressure"
-      render: false
-    - value:
-        type: image
-        src: scene_templates.png
-        caption:
-          title: ""
-          description: ""
-      render: false
-    - value:
-        type: image
-        src: bmv_t.gif
-        caption:
-          title: Basic Model Viewer
-          description: "A Qt5 based visualization utility for basic geometric objects"
-      render: false
-    - value:
-        type: video
-        platform: youtube
-        videoId: 35UEkzww5ds
-      render: false
-    - value:
-        type: video
-        platform: youtube
-        videoId: SRvZxvmoa_g
-      render: false
-    - value:
-        type: video
-        platform: youtube
-        videoId: CsZua1qI4Zc
-      render: false
-skills:
-  label: Skills
-  rank: 6
-  list:
-    - value:
-        name: Multiphysics code development
-        level: Master
-        keywords:
-          - C++
-          - FORTRAN
-          - Python
-      render: true
-    - value:
-        name: Machine learning
-        level: Master
-        keywords:
-          - Python
-      render: true  
-languages:
-  label: Languages
-  rank: 7
-  list:
-    - value:
-        language: English
-        fluency: Native speaker
-      render: false
-interests:
-  label: Interests
-  rank: 8
-  list:
-    - value:
-        name: Wildlife
-        keywords:
-          - Ferrets
-          - Unicorns
-      render: false
-references:
-  label: References
-  rank: 9
-  list:
-    - value:
-        name: Christopher J. Rutland
-        title: Prof.
-        affiliation: University of Wisconsin, Madison
-        address: XXXX University Ave
-        postalCode: WI XXXXX
-        city: City
-        countryName: USA
-        region: State
-        phoneNumber: '1111111111' # string
-        email: user@domain.edu
-      render: true
-custom:
-  # In the homepage, these sections are always rendered at the end.
-  # If these sections are to be rendered in homepage, their order will be as listed below.
-
-
-  # Since "value" is given, this section will be rendered in the homepage with the content of "value".
-  # Since "webPage" is provided, this will also be rendered as another page under the value of "slug".
-  - label: Blog Posts
-    value: "View blog posts [here](blog)"
-    webPage:
-      slug: blog
-      detail: custom/blog.md
-    render: false
-
-  # Since "value" is not given, this is not rendered in the homepage,
-  # but rendered in the route "/blog/profileio"
-  - label: ProfileIO # rendered as another page
-    webPage:
-      slug: blog/profileio #Route
-      detail: custom/sample-code-snippets-2.md
-    render: false
-
-  # rendered in the homepage
-  - label: Few Random Points About ProfileIO
-    value: custom/sample-code-snippets-1.md
-    render: false
+        startDate

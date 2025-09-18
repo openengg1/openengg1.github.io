@@ -4,6 +4,7 @@ import {
   ProfileSectionsWeb,
   Basics,
   Config,
+  SlugMap,
 } from '../types/profileWeb';
 import profileWebData from '../preprocessors/profile_web.json';
 import { omit } from 'lodash';
@@ -11,17 +12,19 @@ import { omit } from 'lodash';
 export interface StoreState {
   profileWeb: ProfileWeb;
   basics: Basics;
-  profileSections: ProfileSectionsWeb;
+  sections: ProfileSectionsWeb;
   config: Config;
+  slugMap: SlugMap;
 }
 
 const initialProfileWebState: ProfileWeb = profileWebData as ProfileWeb;
 const initialBasicsState: Basics = profileWebData.basics as Basics;
-const initialProfileSectionsState: ProfileSectionsWeb = omit(
+const initialSectionsState: ProfileSectionsWeb = omit(
   { ...profileWebData },
-  ['basics', 'config']
+  ['basics', 'config', 'slugMap']
 ) as ProfileSectionsWeb;
 const initialConfigState: Config = profileWebData.config as Config;
+const initialSlugMapState: SlugMap = profileWebData.slugMap as SlugMap;
 
 // Reducers need to follow the (state, action) => newState pattern to satisfy TypeScript
 const profileWeb = (
@@ -44,8 +47,8 @@ const basics = (
   }
 };
 
-const profileSections = (
-  state: ProfileSectionsWeb = initialProfileSectionsState,
+const sections = (
+  state: ProfileSectionsWeb = initialSectionsState,
   action: AnyAction
 ): ProfileSectionsWeb => {
   switch (action.type) {
@@ -64,10 +67,21 @@ const config = (
   }
 };
 
+const slugMap = (
+  state: SlugMap = initialSlugMapState,
+  action: AnyAction
+): SlugMap => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
+
 export const reducers = combineReducers<StoreState>({
   profileWeb,
   basics,
-  profileSections,
+  sections,
   config,
+  slugMap,
 });
 

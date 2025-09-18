@@ -1,44 +1,58 @@
-import { combineReducers } from 'redux';
-import _ from 'lodash';
+import { combineReducers, AnyAction } from 'redux';
 import {
-  Basics,
-  Config,
-  ProfileSectionsWeb,
   ProfileWeb,
-  SlugMap,
+  ProfileSectionsWeb,
+  Basics,
 } from '../types/profileWeb';
 import profileWebData from '../preprocessors/profile_web.json';
-import profileResumeData from '../preprocessors/profile_web.json';
-import { ProfileField } from '../types/fields';
+import { omit } from 'lodash';
 
 export interface StoreState {
-  profileResume: ProfileWeb;
-  config: Config;
+  profileWeb: ProfileWeb;
   basics: Basics;
-  slugMap: SlugMap;
-  sections: ProfileSectionsWeb;
+  profileSections: ProfileSectionsWeb;
 }
 
+const initialProfileWebState: ProfileWeb = profileWebData as ProfileWeb;
+const initialBasicsState: Basics = profileWebData.basics as Basics;
+const initialProfileSectionsState: ProfileSectionsWeb = omit(
+  { ...profileWebData },
+  ['basics', 'config']
+) as ProfileSectionsWeb;
+
+// Reducers need to follow the (state, action) => newState pattern to satisfy TypeScript
+const profileWeb = (
+  state: ProfileWeb = initialProfileWebState,
+  action: AnyAction
+): ProfileWeb => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
+
+const basics = (
+  state: Basics = initialBasicsState,
+  action: AnyAction
+): Basics => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
+
+const profileSections = (
+  state: ProfileSectionsWeb = initialProfileSectionsState,
+  action: AnyAction
+): ProfileSectionsWeb => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
+
 export const reducers = combineReducers<StoreState>({
-  profileResume: () => {
-    return { ...profileResumeData };
-  },
-  config: () => {
-    return { ...profileWebData[ProfileField.Config] };
-  },
-  basics: () => {
-    return { ...profileWebData[ProfileField.Basics] };
-  },
-  slugMap: () => {
-    return 'slugMap' in profileWebData
-      ? { ...profileWebData[ProfileField.SlugMap] }
-      : {};
-  },
-  sections: () => {
-    return _.omit(profileWebData, [
-      ProfileField.Config,
-      ProfileField.Basics,
-      ProfileField.SlugMap,
-    ]);
-  },
+  profileWeb,
+  basics,
+  profileSections,
 });

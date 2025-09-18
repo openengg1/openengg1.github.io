@@ -16,14 +16,13 @@ export interface StoreState {
   slugMap: SlugMap;
 }
 
-
-const { basics, config, slugMap, ...sections } = profileWebData as ProfileWeb;
+const { basics: basicsData, config: configData, slugMap: slugMapData, ...sectionsData } = profileWebData as ProfileWeb;
 
 const initialProfileWebState: ProfileWeb = profileWebData as ProfileWeb;
-const initialBasicsState: Basics = basics;
-const initialSectionsState: ProfileSectionsWeb = sections;
-const initialConfigState: Config = config;
-const initialSlugMapState: SlugMap = slugMap;
+const initialBasicsState: Basics = basicsData;
+const initialSectionsState: ProfileSectionsWeb = sectionsData;
+const initialConfigState: Config = configData;
+const initialSlugMapState: SlugMap = slugMapData;
 
 const profileWeb = (
   state: ProfileWeb = initialProfileWebState,
@@ -67,4 +66,3 @@ export const reducers = combineReducers<StoreState>({
   config,
   slugMap,
 });
-

@@ -1,323 +1,176 @@
-# For all available keys and their usages please refer to https://acrlakshman.github.io/profileio/docs/
-# Comments for the configurations below will be updated soon.
-config:
-  homepage: "https://rohitmishranitrr.github.io"
-  theme:
-    value: panther
-    render: true
-    meta:
-      # below keys are used by resume parser but not by web parser
-      showPageNumbers: true
-      hideSectionLines: false
-      pantherHeaderNameFontSize: 45
-      pantherHeaderColumnOneWidth: 0.6
-      pantherHeaderColumnTwoWidth: 0.4
-  analytics:
-    ga:
-      trackingId: ""
-      enable: false
-  meta:
-    showResumeLink: true
-    # below keys are used by web parser but not by resume parser
-    resume: resume.pdf # path (relative to _profile/files/) for user submitted resume
 basics:
-  name:
-    value: Rohit Mishra
-    render: true
-  label:
-    value: PhD Candidate
-    render: true
-  image:
-    value: pic.jpg # Upload later
-    render: true
-  email:
-    value: rmishra@tamu.edu
-    render: true
-  phone:
-    value: ''
-    render: false
-  url:
-    value: 'https://rohitmishranitrr.github.io'
-    render: false
-  summary:
-    label: About me
-    value: summary.md
-    render: true
+  name: Rohit Mishra
+  label: Senior R&D Engineer
+  email: rohitmishranitrr@gmail.com
+  phone: (608) 320-4509
+  website: openengg1.github.io/
+  summary: Senior R&D Engineer with 10+ years of experience developing and deploying scientific CFD-ML solutions in academia, industry, and national labs. Proven leadership in managing teams, delivering high-impact tools, and helped in securing $1M+ in research funding. Expert in energy simulations, physics-informed ML, cloud computing, and parallel scientific workflows.
   location:
-    value:
-      address: Street #Later
-      postalCode: WI XXXXX
-      city: Madison
-      countryName: USA
-      region: Wisconsin
-    render: false
+    address: 5s070 Pebblewood Ln
+    postalCode: IL 60563
+    city: Naperville
+    countryCode: US
+    region: Illinois
   profiles:
-    - value:
-        network: googlescholar
-        url: https://scholar.google.com/citations?user=Zfx-VCcAAAAJ&hl=en
-      render: true
-    - value: # if username is provided but not url, then we generate the url.
-        network: github
-        username: rohitmishranitrr
-      render: true
-    - value:
-        network: linkedin
-        url: https://www.linkedin.com/in/lakshmananumolu/ # Later
-      render: false
-    - value:
-        network: twitter
-        username: acrlakshman
-        url: https://twitter.com/acrlakshman
-      render: false
-    - value:
-        network: vimeo
-        url: https://vimeo.com/user24179204
-      render: false
+    - network: Google Scholar
+      username: Zfx-VCcAAAAJ
+      url: https://scholar.google.com/citations?user=Zfx-VCcAAAAJ
+    - network: GitHub
+      username: openengg1
+      url: https://github.com/openengg1
+    - network: LinkedIn
+      username: rohit-mishra-phd-ab79428b
+      url: https://www.linkedin.com/in/rohit-mishra-phd-ab79428b/
+
 work:
-  label: Experience
-  rank: 2
-  list:
-    - value:
-        name: Texas A\&M University
-        location: College, TX
-        brief: ""
-        position: Research Assistant
-        url: "tamu.edu"
-        startDate: "2019" # string
-        endDate: Present # string
-        active: true
-        highlights:
-          - detail: Sample text written as part of the demo for profileio. Sample text written as part of the demo for profileio #Later
-          - brief: "" #Bold
-            detail: This is the sample text written for the demo of profileio #Later
-      render: true
+  - company: Gamma Technologies Inc.
+    position: Senior R&D Engineer
+    website:
+    startDate: 2023-08
+    endDate:
+    summary:
+    highlights:
+      - CI/CD of ROM-based modeling of reactive flows in GT-Suite.
+      - Developed 1D packed bed reactor model for SOx scrubbing in marine application.
+      - Integrated CFD-informed ML models for aftertreatment modeling of NOx, reducing simulation time by 8x.
+  - company: Texas A&M University
+    position: Research Assistant
+    website:
+    startDate: 2019-01
+    endDate: 2023-08
+    summary:
+    highlights:
+      - Developed a DNS solver for sCO2 oxy-combustion of methane (a carbon negative power generation combustion strategy).
+      - Developed fast solver for designing high pressure combustion systems by implementing ML techniques to accelerate complex chemical simulations.
+      - Led 4-member team to develop CFD and ML-assisted tools for developing high pressure spray systems (funded by Cummins).
+      - Developed shear thinning model for polymer flooding (applied to predict oil recovery).
+      - New solver developed secured $1M grant for hypersonic vehicle droplet impact modeling using ML workflows.
+      - Mentored 4 researchers; published high-impact results on ensemble and physics based ML models.
+  - company: Texas A&M University
+    position: Teaching Assistant
+    website:
+    startDate: 2019-01
+    endDate: 2019-12
+    summary:
+    highlights:
+      - Taught three courses relating to thermodynamics, fluid dynamics and heat transfer (including 1 lab course).
+  - company: Argonne National Laboratory
+    position: Research Aide
+    website:
+    startDate: 2022-01
+    endDate: 2022-05
+    summary:
+    highlights:
+      - Designed HPC workflows for model validation and benchmarking.
+      - Built scalable data pipeline (100 GB+) for modeling spatiotemporal fields for high pressure spray applications.
+  - company: UW Madison
+    position: Research Assistant
+    website:
+    startDate: 2016-09
+    endDate: 2018-12
+    summary:
+    highlights:
+      - Developed spray-film solver in OpenFOAM that works with LES Lagrangian-Eulerian model.
+      - New solver captures the spray film and secondary droplets well.
+  - company: UW Madison
+    position: Teaching Assistant
+    website:
+    startDate: 2018-01
+    endDate: 2018-07
+    summary:
+    highlights:
+      - Taught three courses relating to instrumentation and thermodynamics.
+  - company: Broan Nutone LLC
+    position: Engineering-Co-op
+    website:
+    startDate: 2017-08
+    endDate: 2018-01
+    summary:
+    highlights:
+      - Built predictive maintenance system for HVAC; saved client $20K/year.
+      - Streamlined analytics framework for product lifecycle integration.
+
 education:
-  label: Education
-  rank: 1
-  list:
-    - value:
-        institution: Texas A\&M University
-        url: https://tamu.edu
-        major: Mechanical Engineering
-        minor: ''
-        degree: PhD
-        grade: 4.0
-        gradeTotal: 4.0
-        courses:
-          - AERO-641 #Later
-      render: true
-    - value:
-        institution: Texas A&M
-        url: https://wisc.edu
-        major: Mechanical Engineering
-        minor: ''
-        degree: M.S.
-      render: true
-projects:
-  label: "Projects"
-  rank: 3
-  maxItemsToRender: 3 # If this is not provided, it defaults to 5 (src/config.ts)
-  list:
-    - value:
-        name: Degassing in diesel injector nozzles
-        description: "Developing OpenFOAM code for 3 component"
-        team: "with Dorrin Jarrahbashi" # [Lakshman Anumolu](//lakshmananumolu.com)_" 
-        note: ""
-        thumbnail: profileio.png #Later
-        highlights:
-          - brief: ""
-            detail: Website and resume generator via YAML
-        keywords:
-          - resume
-          - website
-          - YAML
-          - markdown
-        startDate: '2020' # string
-        endDate: Present
-        # If webPage is not provided, then url will be linked in the homepage for this project
-        url: https://github.com/acrlakshman/profileio
-        roles:
-          - Architect
-          - Developer
-        type: application
-       # webPage:
-       #   slug: profileio
-       #   detail: project/profileio.md # if the content is empty, "url" will be linked in the homepage for the project
-      render: true
-    
+  - institution: Texas A&M University
+    area: Mechanical Engineering
+    studyType: Ph.D.
+    startDate:
+    endDate: 2023-05
+    gpa: 4.0
+    courses:
+      - "Thesis: Computational Analysis of Supercritical CO2 Oxy-Methane Combustion"
+  - institution: University of Wisconsin--Madison
+    area: Mechanical Engineering
+    studyType: M.S.
+    startDate:
+    endDate: 2018-12
+    gpa: 3.6
+    courses:
+      - "Thesis: Evaluating Surface Film Models for Spray-Wall Interaction"
+  - institution: National Institute of Technology
+    area: Mechanical Engineering (Honors)
+    studyType: B.Tech.
+    startDate:
+    endDate: 2016-05
+    gpa: "8.36 / 10.00"
+    courses:
+      - "Project: Optimization of Guide Vane Swirl and Tumble Device using ANSYS Fluent"
+
 awards:
-  label: Awards & Achievements
-  rank: 11
-  list:
-    - value:
-        title: Marshal award
-        date: May 2014
-        awarder: ILASS
-        summary: Best paper for numerical work
-      render: false
+  - title: Pioneer National Resource Fellowship
+    date: 2021--2023
+    awarder:
+    summary: Awarded for research in ML-assisted predictive modeling.
+
 publications:
-  # Format follows: http://web.mit.edu/rsi/www/pdfs/bibtex-format.pdf
-  label: Publications
-  rank: 4
-  maxItemsToRender: 1 # If this is not provided, it defaults to 5 (src/config.ts)
-  list:
-    - value:
-        type: article #Book, in conference, in proceedings, thesis
-        author: "**Rohit Mishra**, Author II"
-        title: "Made-up title of an article for ProfileIO' demo"
-        journal: Journal of Computational Physics
-        volume: 353
-        year: 2018
-        number: 0
-        pages: 377-406
-        thumbnail: gals_phase_change.png
-        # If webPage is not provided, then url will be linked in the homepage for this project
-        url: https://www.sciencedirect.com/science/article/pii/S0021999117307696
-        # webPage:
-        #   slug: levelset-phasechange
-        #   detail: publications/levelset-phasechange.md
-      render: true
-    
-gallery:
-  label: Gallery
-  rank: 5
-  list:
-    - value:
-        type: image
-        src: profileio.png
-        caption:
-          title: ProfileIO
-          description: "Delightfully simple website and resume generator for students, researchers, and engineers"
-      render: false
-    - value:
-        type: image
-        src: scene_templates.png
-        caption:
-          title: ""
-          description: ""
-      render: false
-    - value:
-        type: image
-        src: bmv_t.gif
-        caption:
-          title: Basic Model Viewer
-          description: "A Qt5 based visualization utility for basic geometric objects"
-      render: false
-    - value:
-        type: video
-        platform: youtube
-        videoId: 35UEkzww5ds
-      render: false
-    - value:
-        type: video
-        platform: youtube
-        videoId: SRvZxvmoa_g
-      render: false
-    - value:
-        type: video
-        platform: youtube
-        videoId: CsZua1qI4Zc
-      render: false
+  - name: Journal Publications
+    list:
+      - "R. Mishra, A. Nelson, M. Mousavi, D. Jarrahbashi, 'Supervised Learning-Adaptive Global Pathway Selection Method Coupled with In-Situ Adaptive Tabulation to Accelerate Reacting Simulations', submitted to Fuel, 2025."
+      - "R. Mishra, S. Gundlapally, S. Wahiduzzaman, 'Integrating high fidelity UWS-CFD simulations for fast 3D SCR modeling using Artificial Neural Networks', submitted to International Journal of Engines (SAE), 2025."
+      - "M. Djehaf, A. Hammouti, A. Alami, R. Mishra, M. Benzaama, 'Physics-informed neural network model for coupled heat and mass transfer in bio-based walls based on Künzel’s method', submitted to Building and Environment, 2025."
+      - "M. Benzaama; A. Mokhtari; L. Rajaoarisoa; S. Menhoudj; A. Lapertot; I. Chriaa; R. Mege; R. Mishra, 'Comparing AI Methods: PWARX and LSTM models in solar and geothermal heating analysis', submitted to Energy Systems, 2025."
+      - "R. Mishra, D. Jarrahbashi, 'Direct numerical simulation of supercritical carbon dioxide oxy-methane combustion', Physics of Fluids, 2024."
+      - "P. Daripa, R. Mishra, 'Modeling shear thinning polymer flooding using a dynamic viscosity model', Physics of Fluids, 2023."
+      - "S. Roy, R. Mishra, O. Askari, D. Jarrahbashi, 'Reduced ethanol skeleton mechanism for multi-dimensional engine simulation', Journal of the Energy Institute, 2023."
+      - "R. Mishra, S. Mayilvahanan, D. Jarrahbashi, 'Hybrid unsupervised cluster-wise regression approach for representing the flamelet tables', Energy & Fuels, 2023."
+      - "S. Shariatnia, P. Jangale, R. Mishra, A. Asadi, D. Jarrahbashi, 'Supercritical CO2-assisted atomization for deposition of cellulose nanocrystals', Cellulose, 2022."
+      - "R. Mishra, A. Nelson, D. Jarrahbashi, 'Adaptive global pathway selection using artificial neural networks: A-priori study', Combustion and Flame, 2022."
+      - "R. Mishra, D. Jiwani, D. Jarrahbashi, 'Three-component multi-fluid modeling of pseudo-cavitation phenomenon in diesel injector nozzles', International Journal of Engine Research, 2022."
+      - "R. Mishra, P. Jangale, D. Jarrahbashi, 'A machine learning-assisted variable cone injector model to couple internal nozzle flow with spray simulations', ILASS-Americas, 2022."
+      - "R. Mishra, C. Rutland, 'Evaluating surface film models for multi-dimensional modeling of spray-wall interaction', SAE Technical Paper, 2019."
+  - name: Conference Presentations
+    list:
+      - "P. Daripa, R. Mishra, 'A proposal to model non-uniform mixing of polymers in flows of shear-thinning polymers in porous media during enhanced oil recovery by polymer flooding', Interpore, 2025."
+      - "P. Daripa, R. Mishra, 'Modeling non-uniform mixing of polymers in flows of shear-thinning polymers and surfactants in porous media', APS DFD, 2024."
+      - "D Jarrahbashi, R Mishra, 'Effects of Supercritical Carbon Dioxide Dilution on Oxy-Methane Combustion Using a DNS Approach', APS DFD, 2024"
+      - "P. Ramesh, R. Mishra, D. Jarrahbashi, 'Computational analysis of particle-laden flows approaching hypersonic vehicles', AIAA SciTech Forum, 2024."
+      - "P. Ramesh, R. Mishra, D. Jarrahbashi, 'Computational analysis of the interaction of particles with the shock structure surrounding hypersonic aerial vehicles', APS Meeting, 2023."
+      - "R. Mishra, S. Mayilvahanan, D. Jarrahbashi, 'A hybrid unsupervised cluster-wise regression approach for representing the flamelet tables', USNCM 2023"
+      - "S. Roy, R. Mishra, O. Askari, D. Jarrahbashi, 'Reduced ethanol skeleton mechanism for multi-dimensional engine simulation', USNCM 2023"
+      - "R. Mishra, D. Jarrahbashi, 'Direct numerical simulation of a realistic supercritical carbon dioxide oxy-combustor', USNCM 2023"
+      - "R. Mishra, A. Nelson, D. Jarrahbashi, 'Adaptive global pathway selection using artificial neural networks: A-priori study', USNCM 2023"
+      - "P. Daripa, R. Mishra, 'A numerical approach to incorporating shear thinning effects of polymer in polymer flooding', Interpore 2022"
+      - "R. Mishra, A. Nelson, D. Jarrahbashi, 'Adaptive chemistry reduction using Deep Neural Networks and Global Pathway Selection', APS DFD, 2021."
+      - "R. Mishra, S. Mayilvahanan, D. Jarrahbashi, 'A novel recursive unsupervised clustering MoE to represent flamelet tables', APS DFD, 2021."
+      - "R. Mishra, D. Jarrahbashi, 'Resolving pseudo-cavitation in the nozzle and its effect on spray formation', APS DFD, 2020."
+      - "P. Daripa, R. Mishra, 'A study of the effect of shear thinning in EOR by surfactant-polymer flooding', APS DFD, 2019."
+      - "R. Mishra, D. Jarrahbashi, 'Computational modeling of pseudo-cavitation phenomenon in diesel injector nozzles', APS DFD, 2019."
+      - "R. Mishra, S. Mayilvahanan, D. Jarrahbashi, 'Unsupervised Clustering: A Mixture of Experts Framework to Represent Flamelet Tables', APS DFD, 2019."
+
 skills:
-  label: Skills
-  rank: 6
-  list:
-    - value:
-        name: Web development
-        level: Master
-        keywords:
-          - HTML
-          - CSS
-          - Javascript
-      render: false
-languages:
-  label: Languages
-  rank: 7
-  list:
-    - value:
-        language: English
-        fluency: Native speaker
-      render: false
-interests:
-  label: Interests
-  rank: 8
-  list:
-    - value:
-        name: Wildlife
-        keywords:
-          - Ferrets
-          - Unicorns
-      render: false
-references:
-  label: References
-  rank: 9
-  list:
-    - value:
-        name: John Doe
-        title: Prof.
-        affiliation: University Name
-        address: XXXX University Ave
-        postalCode: WI XXXXX
-        city: City
-        countryName: USA
-        region: State
-        phoneNumber: '1111111111' # string
-        email: user@domain.edu
-      render: false
-# Custom fields
+  - name: Core Competencies
+    level:
+    keywords:
+      - CAE Simulation Tools (GT-Suite, ANSYS Fluent, OpenFOAM, CONVERGE, Cantera)
+      - Scientific ML (JAX, TensorFlow, LLMs)
+      - CFD-ML Tool Development (Python, SQL, C++, Fortran)
+      - Distributed Data Systems (CPU/GPU-Accelerated Computing)
+      - CI/CD & DevOps for ML-CFD Products
+
 custom:
-  # Create patents section of type `list`
-  - label: Patents
-    rank: 2
-    type: list
+  - name: Peer review and session chair
     list:
-      - value:
-          # text in brief will be displayed in bold.
-          brief: 'Physics based simulations:'
-          detail: 'Level set method I for artistic simulations (9999998). Level set method II for artistic simulations (9999999).'
-        render: true
-      - value:
-          brief: 'Experimental physics:'
-          detail: 'Novel PIV method to quatify velocity of fluid flow through swirl atomizer (9999997)'
-        render: true
-    meta:
-      listStyleType: 'none' # no bullets
-
-  # Skills
-  - label: Skills
-    rank: 9
-    type: list
-    list:
-      - value:
-          brief: 'Programming Languages:'
-          detail: 'Fluent: C++, C, Go. Experienced: Python, JavaScript, PHP'
-        render: true
-      - value:
-          brief: 'Libraries:'
-          detail: 'Eigen, NumPy, MPI, etc.'
-        render: true
-      - value:
-          brief: 'Tools:'
-          detail: 'CMake, gdb, valgrind, etc.'
-        render: true
-    meta:
-      listStyleType: 'none'
-
-  # Add `Vocational Training` section as "work" type.
-  - label: Vocational Training
-    rank: 5
-    type: 'work'
-    work:
-      - value:
-          name: Animation Studios
-          location: ''
-          brief: ''
-          position: Trainee
-          url: ''
-          startDate: '' # string
-          endDate: '2014' # string
-          active: true
-          highlights:
-            - detail: This is the sample text written for the demo of profileio
-            - detail: Sample text written as part of the demo for profileio
-        render: true
+      - Chaired a session in APS-DFD 2019 Seattle WA
+      - Chaired a session in ILASS 2022 Madison WI
+      - Chaired a session in USNCM 2023 College Station TX
+      - Peer reviewed 5 journal and 4 conference papers

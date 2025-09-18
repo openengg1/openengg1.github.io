@@ -260,3 +260,17 @@ export interface SlugMap {
     };
   };
 }
+
+export type ProfileField =
+  | Work
+  | Education
+  | Project
+  | Publication
+  | Award
+  | Gallery
+  | Skill
+  | Language
+  | Interest
+  | Reference
+  | Custom;
+

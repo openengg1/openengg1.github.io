@@ -132,6 +132,14 @@ export interface Project {
   }[];
 }
 
+export enum PublicationTypes {
+  Article = 'article',
+  Book = 'book',
+  InConference = 'in conference',
+  InProceedings = 'in proceedings',
+  Thesis = 'thesis',
+}
+
 export interface Publication {
   label: string;
   rank: number;

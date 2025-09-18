@@ -4,7 +4,7 @@ import {
 } from '../types/profileWeb';
 import _ from 'lodash';
 
-export const rankSections = (profile: ProfileSectionsWeb) => {
+export const getProfileRankings = (profile: ProfileSectionsWeb) => {
   const profileRankings: ProfileSectionsWebSkeleton = {};
   for (const key in profile) {
     if (Object.prototype.hasOwnProperty.call(profile, key)) {
@@ -21,3 +21,4 @@ export const rankSections = (profile: ProfileSectionsWeb) => {
 
   return rankedSections;
 };
+

@@ -17,64 +17,48 @@ export interface StoreState {
   slugMap: SlugMap;
 }
 
-const initialProfileWebState: ProfileWeb = profileWebData as ProfileWeb;
-const initialBasicsState: Basics = profileWebData.basics as Basics;
+const initialProfileWebState: ProfileWeb = profileWebData as any;
+const initialBasicsState: Basics = profileWebData.basics as any;
 const initialSectionsState: ProfileSectionsWeb = omit(
   { ...profileWebData },
   ['basics', 'config', 'slugMap']
-) as ProfileSectionsWeb;
-const initialConfigState: Config = profileWebData.config as Config;
-const initialSlugMapState: SlugMap = profileWebData.slugMap as SlugMap;
+) as any;
+const initialConfigState: Config = profileWebData.config as any;
+const initialSlugMapState: SlugMap = profileWebData.slugMap as any;
 
-// Reducers need to follow the (state, action) => newState pattern to satisfy TypeScript
 const profileWeb = (
   state: ProfileWeb = initialProfileWebState,
   action: AnyAction
 ): ProfileWeb => {
-  switch (action.type) {
-    default:
-      return state;
-  }
+  return state;
 };
 
 const basics = (
   state: Basics = initialBasicsState,
   action: AnyAction
 ): Basics => {
-  switch (action.type) {
-    default:
-      return state;
-  }
+  return state;
 };
 
 const sections = (
   state: ProfileSectionsWeb = initialSectionsState,
   action: AnyAction
 ): ProfileSectionsWeb => {
-  switch (action.type) {
-    default:
-      return state;
-  }
+  return state;
 };
 
 const config = (
   state: Config = initialConfigState,
   action: AnyAction
 ): Config => {
-  switch (action.type) {
-    default:
-      return state;
-  }
+  return state;
 };
 
 const slugMap = (
   state: SlugMap = initialSlugMapState,
   action: AnyAction
 ): SlugMap => {
-  switch (action.type) {
-    default:
-      return state;
-  }
+  return state;
 };
 
 export const reducers = combineReducers<StoreState>({

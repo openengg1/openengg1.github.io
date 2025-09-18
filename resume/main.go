@@ -92,20 +92,17 @@ type CustomSection struct {
 }
 
 type ProfileData struct {
-	Basics        Basics          `json:"basics"`
-	Work          []WorkEntry     `json:"work"`
-	Education     Education       `json:"education"`
-	Publications  Publication     `json:"publications"`
-	Skills        Skill           `json:"skills"`
-	Awards        Award           `json:"awards"`
-	Custom        []CustomSection `json:"custom"`
-	Presentations CustomSection   `json:"presentations"`
+	Basics       Basics          `json:"basics"`
+	Work         []WorkEntry     `json:"work"`
+	Education    Education       `json:"education"`
+	Publications Publication     `json:"publications"`
+	Skills       Skill           `json:"skills"`
+	Awards       Award           `json:"awards"`
+	Custom       []CustomSection `json:"custom"`
 }
 
 // --- LaTeX Template ---
 
-// Note: This is a simplified template based on moderncv.
-// It may require adjustments for perfect formatting.
 const texTemplate = `
 \documentclass[11pt,a4paper,sans]{moderncv}
 \moderncvstyle{classic}
@@ -160,6 +157,7 @@ const texTemplate = `
    {
    .Basics.Summary | template "escape"}}
 
+{{if .Skills.List}}
 \section{
    {
    .Skills.Label | template "escape"}}
@@ -168,7 +166,9 @@ const texTemplate = `
    {
    .Value.Name | template "escape"}}
 {{end}}
+{{end}}
 
+{{if .Work}}
 \section{Experience}
 {{range .Work}}
 \cventry{
@@ -190,7 +190,9 @@ const texTemplate = `
 \end{itemize}
 }
 {{end}}
+{{end}}
 
+{{if .Education.List}}
 \section{
    {
    .Education.Label | template "escape"}}
@@ -211,10 +213,12 @@ const texTemplate = `
    {
    . | template "escape"}}
 {{end}}
-\end{itemize}
+\end-itemize}
 }
 {{end}}
+{{end}}
 
+{{if .Publications.List}}
 \section{
    {
    .Publications.Label | template "escape"}}
@@ -225,18 +229,9 @@ const texTemplate = `
    {
    .Value.Summary | template "escape"}}
 {{end}}
-
-\section{
-   {
-   .Presentations.Label | template "escape"}}
-{{range .Presentations.List}}
-\cvitem{
-   {
-   .Value.ID | template "escape"}}{
-   {
-   .Value.Summary | template "escape"}}
 {{end}}
 
+{{if .Custom}}
 {{range .Custom}}
 \section{
    {
@@ -249,7 +244,9 @@ const texTemplate = `
    .Value.Summary | template "escape"}}
 {{end}}
 {{end}}
+{{end}}
 
+{{if .Awards.List}}
 \section{
    {
    .Awards.Label | template "escape"}}
@@ -260,6 +257,7 @@ const texTemplate = `
    {
    .Value.Summary | template "escape"}}
 {{end}}
+{{end}}
 
 \end{document}
 `
@@ -268,7 +266,7 @@ const texTemplate = `
 
 func main() {
 	// Read the JSON file created by the node script
-	jsonData, err := ioutil.ReadFile("./profile_resume.json")
+	jsonData, err := ioutil.ReadFile("./resume/profile_resume.json")
 	if err != nil {
 		log.Fatalf("Error reading profile_resume.json: %v", err)
 	}
@@ -321,21 +319,17 @@ func main() {
 		log.Fatalf("Error parsing template: %v", err)
 	}
 
+	// Create the output directory if it doesn't exist
+	if _, err := os.Stat("./resume"); os.IsNotExist(err) {
+		if err := os.Mkdir("./resume", 0755); err != nil {
+			log.Fatalf("Error creating directory ./resume: %v", err)
+		}
+	}
+
 	// Create the output .tex file
 	outputFile, err := os.Create("./resume/resume.tex")
 	if err != nil {
-		// Attempt to create directory if it doesn't exist
-		if os.IsNotExist(err) {
-			if err := os.Mkdir("./resume", 0755); err != nil {
-				log.Fatalf("Error creating directory ./resume: %v", err)
-			}
-			outputFile, err = os.Create("./resume/resume.tex")
-			if err != nil {
-				log.Fatalf("Error creating resume.tex after creating directory: %v", err)
-			}
-		} else {
-			log.Fatalf("Error creating resume.tex: %v", err)
-		}
+		log.Fatalf("Error creating resume.tex: %v", err)
 	}
 	defer outputFile.Close()
 

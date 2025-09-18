@@ -7,7 +7,6 @@ import {
   SlugMap,
 } from '../types/profileWeb';
 import profileWebData from '../preprocessors/profile_web.json';
-import { omit } from 'lodash';
 
 export interface StoreState {
   profileWeb: ProfileWeb;
@@ -17,14 +16,14 @@ export interface StoreState {
   slugMap: SlugMap;
 }
 
-const initialProfileWebState: ProfileWeb = profileWebData as any;
-const initialBasicsState: Basics = profileWebData.basics as any;
-const initialSectionsState: ProfileSectionsWeb = omit(
-  { ...profileWebData },
-  ['basics', 'config', 'slugMap']
-) as any;
-const initialConfigState: Config = profileWebData.config as any;
-const initialSlugMapState: SlugMap = profileWebData.slugMap as any;
+
+const { basics, config, slugMap, ...sections } = profileWebData as ProfileWeb;
+
+const initialProfileWebState: ProfileWeb = profileWebData as ProfileWeb;
+const initialBasicsState: Basics = basics;
+const initialSectionsState: ProfileSectionsWeb = sections;
+const initialConfigState: Config = config;
+const initialSlugMapState: SlugMap = slugMap;
 
 const profileWeb = (
   state: ProfileWeb = initialProfileWebState,

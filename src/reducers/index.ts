@@ -3,6 +3,7 @@ import {
   ProfileWeb,
   ProfileSectionsWeb,
   Basics,
+  Config,
 } from '../types/profileWeb';
 import profileWebData from '../preprocessors/profile_web.json';
 import { omit } from 'lodash';
@@ -11,6 +12,7 @@ export interface StoreState {
   profileWeb: ProfileWeb;
   basics: Basics;
   profileSections: ProfileSectionsWeb;
+  config: Config;
 }
 
 const initialProfileWebState: ProfileWeb = profileWebData as ProfileWeb;
@@ -19,6 +21,7 @@ const initialProfileSectionsState: ProfileSectionsWeb = omit(
   { ...profileWebData },
   ['basics', 'config']
 ) as ProfileSectionsWeb;
+const initialConfigState: Config = profileWebData.config as Config;
 
 // Reducers need to follow the (state, action) => newState pattern to satisfy TypeScript
 const profileWeb = (
@@ -51,8 +54,20 @@ const profileSections = (
   }
 };
 
+const config = (
+  state: Config = initialConfigState,
+  action: AnyAction
+): Config => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
+
 export const reducers = combineReducers<StoreState>({
   profileWeb,
   basics,
   profileSections,
+  config,
 });
+

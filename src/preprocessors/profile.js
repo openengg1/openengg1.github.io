@@ -309,7 +309,9 @@ const generateTexFromJSON = (data) => {
 
     if (data.basics.profiles) {
         data.basics.profiles.forEach(profile => {
-            tex += `\\social[${profile.network}]{${escapeLatex(profile.user)}}\n`;
+            if (profile) {
+                tex += `\\social[${profile.network}]{${escapeLatex(profile.user)}}\n`;
+            }
         });
     }
 
@@ -324,49 +326,63 @@ ${escapeLatex(data.basics.summary)}
     if (data.skills && data.skills.list) {
         tex += `\n\\section{${escapeLatex(data.skills.label)}}\n`;
         data.skills.list.forEach(item => {
-            tex += `\\cvitem{}{${escapeLatex(item.value.name)}}\n`;
+            if (item && item.value) {
+                tex += `\\cvitem{}{${escapeLatex(item.value.name)}}\n`;
+            }
         });
     }
     
     if (data.work) {
         tex += `\n\\section{Experience}\n`;
         data.work.forEach(item => {
-            tex += `\\cventry{${item.value.date}}{${escapeLatex(item.value.position)}}{${escapeLatex(item.value.company)}}{${escapeLatex(item.value.location)}}{}{
+            if (item && item.value) {
+                tex += `\\cventry{${item.value.date}}{${escapeLatex(item.value.position)}}{${escapeLatex(item.value.company)}}{${escapeLatex(item.value.location)}}{}{
 \\begin{itemize}
 `;
-            item.value.description.forEach(desc => {
-                tex += `\\item ${escapeLatex(desc)}\n`;
-            });
-            tex += `\\end{itemize}}\n`;
+                if (item.value.description) {
+                    item.value.description.forEach(desc => {
+                        tex += `\\item ${escapeLatex(desc)}\n`;
+                    });
+                }
+                tex += `\\end{itemize}}\n`;
+            }
         });
     }
 
     if (data.education && data.education.list) {
         tex += `\n\\section{${escapeLatex(data.education.label)}}\n`;
         data.education.list.forEach(item => {
-            tex += `\\cventry{${item.value.date}}{${escapeLatex(item.value.studyType)}}{${escapeLatex(item.value.institution)}}{${escapeLatex(item.value.location)}}{}{
+            if (item && item.value) {
+                tex += `\\cventry{${item.value.date}}{${escapeLatex(item.value.studyType)}}{${escapeLatex(item.value.institution)}}{${escapeLatex(item.value.location)}}{}{
 \\begin{itemize}
 `;
-            item.value.description.forEach(desc => {
-                tex += `\\item ${escapeLatex(desc)}\n`;
-            });
-            tex += `\\end{itemize}}\n`;
+                if (item.value.description) {
+                    item.value.description.forEach(desc => {
+                        tex += `\\item ${escapeLatex(desc)}\n`;
+                    });
+                }
+                tex += `\\end{itemize}}\n`;
+            }
         });
     }
     
     if (data.publications && data.publications.list) {
         tex += `\n\\section{${escapeLatex(data.publications.label)}}\n`;
         data.publications.list.forEach(item => {
-            tex += `\\cvitem{${escapeLatex(item.value.id)}}{${escapeLatex(item.value.summary)}}\n`;
+            if (item && item.value) {
+                tex += `\\cvitem{${escapeLatex(item.value.id)}}{${escapeLatex(item.value.summary)}}\n`;
+            }
         });
     }
 
     if (data.custom) {
         data.custom.forEach(section => {
-            if (section.list) {
+            if (section && section.list) {
                 tex += `\n\\section{${escapeLatex(section.label)}}\n`;
                 section.list.forEach(item => {
-                    tex += `\\cvitem{${escapeLatex(item.value.id)}}{${escapeLatex(item.value.summary)}}\n`;
+                    if (item && item.value) {
+                        tex += `\\cvitem{${escapeLatex(item.value.id)}}{${escapeLatex(item.value.summary)}}\n`;
+                    }
                 });
             }
         });
@@ -375,7 +391,9 @@ ${escapeLatex(data.basics.summary)}
     if (data.awards && data.awards.list) {
         tex += `\n\\section{${escapeLatex(data.awards.label)}}\n`;
         data.awards.list.forEach(item => {
-            tex += `\\cvitem{${item.value.date}}{${escapeLatex(item.value.summary)}}\n`;
+            if (item && item.value) {
+                tex += `\\cvitem{${item.value.date}}{${escapeLatex(item.value.summary)}}\n`;
+            }
         });
     }
 

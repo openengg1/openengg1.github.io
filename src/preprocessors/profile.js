@@ -1,8 +1,8 @@
 const yaml = require('js-yaml');
 const fs = require('fs');
 const path = require('path');
-var showdown = require('showdown');
 
+// --- (Existing helper functions remain the same) ---
 const processFilePath = (path_ = '') => {
   if (path_ !== '.' && path_ !== './') {
     if (path_.length && path_[0] === '/') return path_;
@@ -242,40 +242,174 @@ const processSlug = (jsonObj, section) => {
 };
 
 const processMarkdownFieldsAndSlugs = (jsonObj) => {
-  jsonObj['slugMap'] = {};
+	jsonObj['slugMap'] = {};
 
-  for (key in jsonObj) {
-    if (key === 'basics') {
-      jsonObj = processProfileSummary(jsonObj);
-    }
+	for (const key in jsonObj) {
+		if (key === 'basics') {
+			jsonObj = processProfileSummary(jsonObj);
+		}
 
-    if (key === 'projects') {
-      jsonObj = processProjectsMarkdownFields(jsonObj);
-      jsonObj = processSlug(jsonObj, 'projects');
-    }
+		if (key === 'projects' && jsonObj[key] && jsonObj[key].list) {
+			jsonObj = processProjectsMarkdownFields(jsonObj);
+			jsonObj = processSlug(jsonObj, 'projects');
+		}
 
-    if (key === 'publications') {
-      jsonObj = processPublicationsMarkdownFields(jsonObj);
-      jsonObj = processSlug(jsonObj, 'publications');
-    }
+		if (key === 'publications' && jsonObj[key] && jsonObj[key].list) {
+			jsonObj = processPublicationsMarkdownFields(jsonObj);
+			jsonObj = processSlug(jsonObj, 'publications');
+		}
 
-    if (key === 'custom') {
-      jsonObj = processCustomSectionsMarkdownFields(jsonObj);
-      jsonObj = processSlug(jsonObj, 'custom');
-    }
-  }
+		if (key === 'custom' && jsonObj[key]) {
+			jsonObj = processCustomSectionsMarkdownFields(jsonObj);
+			jsonObj = processSlug(jsonObj, 'custom');
+		}
+	}
 
-  return jsonObj;
+	return jsonObj;
 };
 
+// --- NEW: LaTeX Generation Logic ---
+
+// Escapes special LaTeX characters
+const escapeLatex = (s) => {
+    if (typeof s !== 'string') return '';
+    return s
+        .replace(/&/g, '\\&')
+        .replace(/%/g, '\\%')
+        .replace(/\$/g, '\\$')
+        .replace(/#/g, '\\#')
+        .replace(/_/g, '\\_')
+        .replace(/{/g, '\\{')
+        .replace(/}/g, '\\}')
+        .replace(/~/g, '\\textasciitilde{}')
+        .replace(/\^/g, '\\textasciicircum{}')
+        .replace(/\\/g, '\\textbackslash{}');
+};
+
+
+// Generates the final .tex file content from the JSON data
+const generateTexFromJSON = (data) => {
+    const nameParts = data.basics.name.split(' ');
+    const firstName = nameParts.shift() || '';
+    const lastName = nameParts.join(' ') || '';
+
+    let tex = `
+\\documentclass[11pt,a4paper,sans]{moderncv}
+\\moderncvstyle{classic}
+\\moderncvcolor{blue}
+\\usepackage[utf8]{inputenc}
+\\usepackage[scale=0.8]{geometry}
+
+\\name{${escapeLatex(firstName)}}{${escapeLatex(lastName)}}
+\\address{${escapeLatex(data.basics.address)}}{}
+\\phone[mobile]{${escapeLatex(data.basics.phone)}}
+\\email{${escapeLatex(data.basics.email)}}
+\\homepage{${escapeLatex(data.basics.homepage)}}
+`;
+
+    if (data.basics.profiles) {
+        data.basics.profiles.forEach(profile => {
+            tex += `\\social[${profile.network}]{${escapeLatex(profile.user)}}\n`;
+        });
+    }
+
+    tex += `
+\\begin{document}
+\\makecvtitle
+
+\\section{Profile}
+${escapeLatex(data.basics.summary)}
+`;
+
+    if (data.skills && data.skills.list) {
+        tex += `\n\\section{${escapeLatex(data.skills.label)}}\n`;
+        data.skills.list.forEach(item => {
+            tex += `\\cvitem{}{${escapeLatex(item.value.name)}}\n`;
+        });
+    }
+    
+    if (data.work) {
+        tex += `\n\\section{Experience}\n`;
+        data.work.forEach(item => {
+            tex += `\\cventry{${item.value.date}}{${escapeLatex(item.value.position)}}{${escapeLatex(item.value.company)}}{${escapeLatex(item.value.location)}}{}{
+\\begin{itemize}
+`;
+            item.value.description.forEach(desc => {
+                tex += `\\item ${escapeLatex(desc)}\n`;
+            });
+            tex += `\\end{itemize}}\n`;
+        });
+    }
+
+    if (data.education && data.education.list) {
+        tex += `\n\\section{${escapeLatex(data.education.label)}}\n`;
+        data.education.list.forEach(item => {
+            tex += `\\cventry{${item.value.date}}{${escapeLatex(item.value.studyType)}}{${escapeLatex(item.value.institution)}}{${escapeLatex(item.value.location)}}{}{
+\\begin{itemize}
+`;
+            item.value.description.forEach(desc => {
+                tex += `\\item ${escapeLatex(desc)}\n`;
+            });
+            tex += `\\end{itemize}}\n`;
+        });
+    }
+    
+    if (data.publications && data.publications.list) {
+        tex += `\n\\section{${escapeLatex(data.publications.label)}}\n`;
+        data.publications.list.forEach(item => {
+            tex += `\\cvitem{${escapeLatex(item.value.id)}}{${escapeLatex(item.value.summary)}}\n`;
+        });
+    }
+
+    if (data.custom) {
+        data.custom.forEach(section => {
+            if (section.list) {
+                tex += `\n\\section{${escapeLatex(section.label)}}\n`;
+                section.list.forEach(item => {
+                    tex += `\\cvitem{${escapeLatex(item.value.id)}}{${escapeLatex(item.value.summary)}}\n`;
+                });
+            }
+        });
+    }
+
+    if (data.awards && data.awards.list) {
+        tex += `\n\\section{${escapeLatex(data.awards.label)}}\n`;
+        data.awards.list.forEach(item => {
+            tex += `\\cvitem{${item.value.date}}{${escapeLatex(item.value.summary)}}\n`;
+        });
+    }
+
+    tex += `
+\\end{document}
+`;
+    return tex;
+};
+
+
 const processProfile = (relativeFilePath, depth, outFileRelativePath) => {
-  let jsonObj = getJSONFromYAML(relativeFilePath, depth);
-  const jsonFile = appendToRootFolder(outFileRelativePath, 2);
+	let jsonObj = getJSONFromYAML(relativeFilePath, depth);
+	const jsonFile = appendToRootFolder(outFileRelativePath, 2);
 
-  // process markdown files
-  jsonObj = processMarkdownFieldsAndSlugs(jsonObj);
+	// process markdown files
+	jsonObj = processMarkdownFieldsAndSlugs(jsonObj);
 
-  fs.writeFileSync(jsonFile, JSON.stringify(jsonObj));
+	fs.writeFileSync(jsonFile, JSON.stringify(jsonObj));
+
+    // If this is the resume file, also generate the .tex file
+    if (path.basename(outFileRelativePath) === 'profile_resume.json') {
+        const texContent = generateTexFromJSON(jsonObj);
+        const texFile = appendToRootFolder('resume/resume.tex', 2);
+        
+        // Ensure the resume directory exists
+        const resumeDir = path.dirname(texFile);
+        if (!fs.existsSync(resumeDir)){
+            fs.mkdirSync(resumeDir, { recursive: true });
+        }
+
+        fs.writeFileSync(texFile, texContent);
+        console.log('resume.tex generated successfully.');
+    }
 };
 
 processProfile(process.argv[2], 2, process.argv[3]);
+

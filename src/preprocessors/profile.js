@@ -69,6 +69,13 @@ const isValidSlug = (slug) => {
 };
 
 const processProfileSummary = (jsonObj) => {
+  if (
+    !jsonObj['basics'] ||
+    !jsonObj['basics']['summary'] ||
+    !jsonObj['basics']['summary']['value']
+  ) {
+    return jsonObj;
+  }
   let summary = jsonObj['basics']['summary']['value'];
 
   if (isValidFilePath(summary)) {
@@ -87,6 +94,9 @@ const processProfileSummary = (jsonObj) => {
 };
 
 const processProjectsMarkdownFields = (jsonObj) => {
+  if (!jsonObj['projects'] || !Array.isArray(jsonObj['projects']['list'])) {
+    return jsonObj;
+  }
   let list = jsonObj['projects']['list'];
 
   for (let i = 0; i < list.length; i++) {
@@ -115,6 +125,12 @@ const processProjectsMarkdownFields = (jsonObj) => {
 };
 
 const processPublicationsMarkdownFields = (jsonObj) => {
+  if (
+    !jsonObj['publications'] ||
+    !Array.isArray(jsonObj['publications']['list'])
+  ) {
+    return jsonObj;
+  }
   let list = jsonObj['publications']['list'];
 
   for (let i = 0; i < list.length; i++) {
@@ -141,6 +157,9 @@ const processPublicationsMarkdownFields = (jsonObj) => {
 };
 
 const processCustomSectionsMarkdownFields = (jsonObj) => {
+  if (!jsonObj['custom'] || !Array.isArray(jsonObj['custom'])) {
+    return jsonObj;
+  }
   let list = jsonObj['custom'];
 
   for (let i = 0; i < list.length; i++) {
@@ -188,10 +207,16 @@ const processCustomSectionsMarkdownFields = (jsonObj) => {
 };
 
 const processSlug = (jsonObj, section) => {
+  if (!jsonObj[section]) {
+    return jsonObj;
+  }
+
   let list = {};
   if (section === 'custom') {
+    if (!Array.isArray(jsonObj[section])) return jsonObj;
     list = jsonObj[section];
   } else {
+    if (!Array.isArray(jsonObj[section]['list'])) return jsonObj;
     list = jsonObj[section]['list'];
   }
 

@@ -274,6 +274,7 @@ const processMarkdownFieldsAndSlugs = (jsonObj) => {
 const escapeLatex = (s) => {
     if (typeof s !== 'string') return '';
     return s
+        .replace(/\\/g, '\\textbackslash{}')
         .replace(/&/g, '\\&')
         .replace(/%/g, '\\%')
         .replace(/\$/g, '\\$')
@@ -282,8 +283,7 @@ const escapeLatex = (s) => {
         .replace(/{/g, '\\{')
         .replace(/}/g, '\\}')
         .replace(/~/g, '\\textasciitilde{}')
-        .replace(/\^/g, '\\textasciicircum{}')
-        .replace(/\\/g, '\\textbackslash{}');
+        .replace(/\^/g, '\\textasciicircum{}');
 };
 
 

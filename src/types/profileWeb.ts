@@ -42,8 +42,17 @@ export interface ProfileSectionsWeb {
   custom?: Custom[];
 }
 
+export interface ProfileSectionsWebSkeleton {
+  [key: string]: {
+    rank?: number;
+    label?: string;
+    render?: boolean;
+  };
+}
+
 export interface ProfileWeb extends ProfileSectionsWeb {
   config: Config;
   basics: Basics;
   slugMap: SlugMap;
 }
+

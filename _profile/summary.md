@@ -1,4 +1,4 @@
-Hi! I am Rohit, a Senior R&D Engineer currently working at the [Gamma Technologies], Westmont, IL USA. I am working in the Reactive Flow Group.
+Hi! I am Rohit, a Senior R&D Engineer currently working at [Gamma Technologies], Westmont, IL USA. I am working in the Reactive Flow Group.
 
 **My interests:**
 * Physics based modeling and simulation

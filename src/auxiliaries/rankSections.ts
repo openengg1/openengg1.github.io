@@ -8,7 +8,6 @@ export const getProfileRankings = (profile: ProfileSectionsWeb) => {
   const profileRankings: ProfileSectionsWebSkeleton = {};
   for (const key in profile) {
     if (Object.prototype.hasOwnProperty.call(profile, key)) {
-      // Use a type guard to ensure the property exists and is of the correct type
       const section = profile[key];
       if (section && 'rank' in section) {
         let r = _.get(section, 'rank');

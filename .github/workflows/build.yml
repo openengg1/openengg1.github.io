@@ -25,7 +25,6 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-        check-latest: true
 
     - name: yarn install and build with spa-github-pages
       run: |
@@ -75,7 +74,6 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-        check-latest: true
 
     - name: yarn install and build
       run: |
@@ -147,7 +145,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         persist-credentials: false
     - name: Update branch deployment_platforms with main
@@ -185,7 +183,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         persist-credentials: false
     - name: Download artifacts

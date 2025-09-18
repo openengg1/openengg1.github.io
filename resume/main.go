@@ -24,17 +24,16 @@ type Basics struct {
 	} `json:"profiles"`
 }
 
-type Work struct {
-	Label string `json:"label"`
-	List  []struct {
-		Value struct {
-			Position    string   `json:"position"`
-			Company     string   `json:"company"`
-			Location    string   `json:"location"`
-			Date        string   `json:"date"`
-			Description []string `json:"description"`
-		} `json:"value"`
-	} `json:"list"`
+type WorkEntryValue struct {
+	Position    string   `json:"position"`
+	Company     string   `json:"company"`
+	Location    string   `json:"location"`
+	Date        string   `json:"date"`
+	Description []string `json:"description"`
+}
+
+type WorkEntry struct {
+	Value WorkEntryValue `json:"value"`
 }
 
 type Education struct {
@@ -94,7 +93,7 @@ type CustomSection struct {
 
 type ProfileData struct {
 	Basics        Basics          `json:"basics"`
-	Work          Work            `json:"work"`
+	Work          []WorkEntry     `json:"work"`
 	Education     Education       `json:"education"`
 	Publications  Publication     `json:"publications"`
 	Skills        Skill           `json:"skills"`
@@ -170,10 +169,8 @@ const texTemplate = `
    .Value.Name | template "escape"}}
 {{end}}
 
-\section{
-   {
-   .Work.Label | template "escape"}}
-{{range .Work.List}}
+\section{Experience}
+{{range .Work}}
 \cventry{
    {
    .Value.Date}}{

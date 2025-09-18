@@ -28,6 +28,7 @@ jobs:
       run: |
         cp spa-github-pages/index.html public/index.html
         yarn install
+        export NODE_OPTIONS=--openssl-legacy-provider
         yarn run build
         cp spa-github-pages/404.html build/
 
@@ -44,6 +45,7 @@ jobs:
 
     - name: Generate TeX file for resume
       run: |
+        export NODE_OPTIONS=--openssl-legacy-provider
         yarn run build:resume-json
         cd resume
         go run main.go
@@ -74,6 +76,7 @@ jobs:
     - name: Install dependencies and build web app
       run: |
         yarn install
+        export NODE_OPTIONS=--openssl-legacy-provider
         yarn run build
 
     - name: Setup Go ${{ matrix.go }}
@@ -83,6 +86,7 @@ jobs:
 
     - name: Generate TeX file for resume
       run: |
+        export NODE_OPTIONS=--openssl-legacy-provider
         yarn run build:resume-json
         cd resume
         go run main.go
@@ -181,3 +185,4 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         branch: gh-pages-mac
         folder: gh-pages-mac
+

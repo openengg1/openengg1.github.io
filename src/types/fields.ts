@@ -31,6 +31,18 @@ export interface Config {
   meta: ConfigMeta;
 }
 
+export enum SocialProfileTypes {
+  GoogleScholar = 'googlescholar',
+  Github = 'github',
+  Linkedin = 'linkedin',
+  Twitter = 'twitter',
+  Vimeo = 'vimeo',
+  Facebook = 'facebook',
+  Gitlab = 'gitlab',
+  Twitch = 'twitch',
+  Youtube = 'youtube',
+}
+
 export interface SocialProfile {
   value: {
     network: string;

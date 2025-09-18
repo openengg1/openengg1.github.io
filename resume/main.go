@@ -3,7 +3,6 @@ package main
 import (
 	"io/ioutil"
 	"log"
-	"os"
 	"os/exec"
 
 	"github.com/acrlakshman/profileio-resume/profileio"
@@ -45,3 +44,4 @@ func commandExists(cmd string) bool {
 	_, err := exec.LookPath(cmd)
 	return err == nil
 }
+

@@ -1,4 +1,4 @@
-name: Build and deploy
+name: Build and Deploy
 on:
   push:
     branches: [main]
@@ -7,49 +7,41 @@ on:
   workflow_dispatch:
 
 jobs:
-
   build-and-deploy:
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node-version: ['14.x']
-
-    runs-on: ${{ matrix.os }}
-
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Use node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '14.x'
 
-    - name: Install dependencies and build web app
-      run: |
-        cp spa-github-pages/index.html public/index.html
-        yarn install
-        yarn run build
-        cp spa-github-pages/404.html build/
+      - name: Install dependencies and build website
+        run: |
+          yarn install
+          yarn run build
 
-    - name: Generate resume source files
-      run: yarn run build:resume
+      - name: Build resume source file
+        run: yarn run build:resume
 
-    - name: Compile Resume PDF
-      uses: xu-cheng/latex-action@v3
-      with:
-        root_file: resume/resume.tex
-        latexmk_use_xelatex: true
+      - name: Compile resume PDF from LaTeX
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: resume/resume.tex
+          latexmk_use_xelatex: true
 
-    - name: Prepare deployment folder
-      run: |
-        mkdir -p build/files/resume
-        cp resume/resume.pdf build/files/resume/resume.pdf
+      - name: Prepare deployment folder
+        run: |
+          # The resume PDF is generated in the root, move it
+          mkdir -p build/files/resume
+          mv resume.pdf build/files/resume/resume.pdf
 
-    - name: Deploy to gh-pages
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: build
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: build
 

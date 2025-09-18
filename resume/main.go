@@ -18,6 +18,7 @@ type Basics struct {
 	Email    string `json:"email"`
 	Homepage string `json:"homepage"`
 	Summary  struct {
+		Label string `json:"label"`
 		Value string `json:"value"`
 	} `json:"summary"`
 	Profiles []struct {
@@ -321,4 +322,5 @@ func main() {
 
 	log.Println("resume.tex created successfully.")
 }
+
 

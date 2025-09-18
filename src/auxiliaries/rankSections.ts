@@ -4,38 +4,20 @@ import {
 } from '../types/profileWeb';
 import _ from 'lodash';
 
-// It takes profile in json (excluding config, basics) and returns {work: 1, publications: 2, ...}.
-export const getProfileRankings = (
-  profile: ProfileSectionsWeb
-): ProfileSectionsWebSkeleton => {
-  let profileRankings: ProfileSectionsWebSkeleton = {};
-  if (profile) {
-    let keys = Object.keys(profile) as Array<keyof ProfileSectionsWeb>;
-
-    for (let i = 0; i < keys.length; i++) {
-      let key = keys[i];
+export const rankSections = (profile: ProfileSectionsWeb) => {
+  const profileRankings: ProfileSectionsWebSkeleton = {};
+  for (const key in profile) {
+    if (Object.prototype.hasOwnProperty.call(profile, key)) {
       let r = _.get(profile, [key, 'rank']);
       let rank: number = r ? r : 9999;
-      profileRankings[key] = rank;
+      profileRankings[key] = { rank: rank };
     }
   }
 
-  return profileRankings;
-};
+  const sections = Object.keys(profile);
+  const rankedSections = sections.sort((a, b) => {
+    return (profileRankings[a].rank || 9999) - (profileRankings[b].rank || 9999);
+  });
 
-export const getSortedArray = (
-  profileRanksTheme: ProfileSectionsWebSkeleton,
-  profileRanksUser: ProfileSectionsWebSkeleton
-) => {
-  // Ref.: https://stackoverflow.com/questions/32349838/lodash-sorting-object-by-values-without-losing-the-key
-  return Object.keys(
-    _.chain({ ...profileRanksTheme, ...profileRanksUser })
-      .map((val, key) => {
-        return { name: key, count: val };
-      })
-      .sortBy('count')
-      .keyBy('name')
-      .mapValues('count')
-      .value()
-  ) as Array<keyof ProfileSectionsWeb>;
+  return rankedSections;
 };

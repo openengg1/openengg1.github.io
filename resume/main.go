@@ -17,10 +17,7 @@ type Basics struct {
 	Phone    string `json:"phone"`
 	Email    string `json:"email"`
 	Homepage string `json:"homepage"`
-	Summary  struct {
-		Label string `json:"label"`
-		Value string `json:"value"`
-	} `json:"summary"`
+	Summary  string `json:"summary"`
 	Profiles []struct {
 		Network string `json:"network"`
 		User    string `json:"user"`
@@ -133,119 +130,138 @@ const texTemplate = `
 {{- $s -}}
 {{- end -}}
 
-\name{ {
+\name{
    {
-   .Basics.FirstName}} }{ {
-   {.Basics.LastName}} }
-\address{ {
+   .FirstName}}{
    {
-   .Basics.Address}} }{}
-\phone[mobile]{ {
+   .LastName}}
+\address{
    {
-   .Basics.Phone}} }
-\email{ {
+   .Basics.Address}}{}
+\phone[mobile]{
    {
-   .Basics.Email}} }
-\homepage{ {
+   .Basics.Phone}}
+\email{
    {
-   .Basics.Homepage}} }
+   .Basics.Email}}
+\homepage{
+   {
+   .Basics.Homepage}}
 {{range .Basics.Profiles}}
-\social[{{.Network}}]{ {
+\social[{{.Network}}]{
    {
-   .User}} }
+   .User}}
 {{end}}
 
 \begin{document}
 \makecvtitle
 
-\section{ {
+\section{Profile}
+{
    {
-   .Basics.Summary.Label | template "escape"}} }
-{ {
-   .Basics.Summary.Value | template "escape"}}
+   .Basics.Summary | template "escape"}}
 
-\section{ {
+\section{
    {
-   .Skills.Label | template "escape"}} }
+   .Skills.Label | template "escape"}}
 {{range .Skills.List}}
-\cvitem{}{ {
-   {.Value.Name | template "escape"}} }
+\cvitem{}{
+   {
+   .Value.Name | template "escape"}}
 {{end}}
 
-\section{ {
+\section{
    {
-   .Work.Label | template "escape"}} }
+   .Work.Label | template "escape"}}
 {{range .Work.List}}
-\cventry{ {
-   {.Value.Date}} }{ {
-   {.Value.Position | template "escape"}} }{ {
-   {.Value.Company | template "escape"}} }{ {
-   {.Value.Location | template "escape"}} }{}
+\cventry{
+   {
+   .Value.Date}}{
+   {
+   .Value.Position | template "escape"}}{
+   {
+   .Value.Company | template "escape"}}{
+   {
+   .Value.Location | template "escape"}}{}
 {
 \begin{itemize}
 {{range .Value.Description}}
-\item { {
+\item {
+   {
    . | template "escape"}}
 {{end}}
 \end{itemize}
 }
 {{end}}
 
-\section{ {
+\section{
    {
-   .Education.Label | template "escape"}} }
+   .Education.Label | template "escape"}}
 {{range .Education.List}}
-\cventry{ {
-   {.Value.Date}} }{ {
-   {.Value.StudyType | template "escape"}} }{ {
-   {.Value.Institution | template "escape"}} }{ {
-   {.Value.Location | template "escape"}} }{}
+\cventry{
+   {
+   .Value.Date}}{
+   {
+   .Value.StudyType | template "escape"}}{
+   {
+   .Value.Institution | template "escape"}}{
+   {
+   .Value.Location | template "escape"}}{}
 {
 \begin{itemize}
 {{range .Value.Description}}
-\item { {
+\item {
+   {
    . | template "escape"}}
 {{end}}
 \end{itemize}
 }
 {{end}}
 
-\section{ {
+\section{
    {
-   .Publications.Label | template "escape"}} }
+   .Publications.Label | template "escape"}}
 {{range .Publications.List}}
-\cvitem{ {
-   {.Value.ID | template "escape"}} }{ {
-   {.Value.Summary | template "escape"}} }
+\cvitem{
+   {
+   .Value.ID | template "escape"}}{
+   {
+   .Value.Summary | template "escape"}}
 {{end}}
 
-\section{ {
+\section{
    {
-   .Presentations.Label | template "escape"}} }
+   .Presentations.Label | template "escape"}}
 {{range .Presentations.List}}
-\cvitem{ {
-   {.Value.ID | template "escape"}} }{ {
-   {.Value.Summary | template "escape"}} }
+\cvitem{
+   {
+   .Value.ID | template "escape"}}{
+   {
+   .Value.Summary | template "escape"}}
 {{end}}
 
 {{range .Custom}}
-\section{ {
+\section{
    {
-   .Label | template "escape"}} }
+   .Label | template "escape"}}
 {{range .List}}
-\cvitem{ {
-   {.Value.ID | template "escape"}} }{ {
-   {.Value.Summary | template "escape"}} }
+\cvitem{
+   {
+   .Value.ID | template "escape"}}{
+   {
+   .Value.Summary | template "escape"}}
 {{end}}
 {{end}}
 
-\section{ {
+\section{
    {
-   .Awards.Label | template "escape"}} }
+   .Awards.Label | template "escape"}}
 {{range .Awards.List}}
-\cvitem{ {
-   {.Value.Date}} }{ {
-   {.Value.Summary | template "escape"}} }
+\cvitem{
+   {
+   .Value.Date}}{
+   {
+   .Value.Summary | template "escape"}}
 {{end}}
 
 \end{document}
@@ -309,9 +325,20 @@ func main() {
 	}
 
 	// Create the output .tex file
-	outputFile, err := os.Create("./resume.tex")
+	outputFile, err := os.Create("./resume/resume.tex")
 	if err != nil {
-		log.Fatalf("Error creating resume.tex: %v", err)
+		// Attempt to create directory if it doesn't exist
+		if os.IsNotExist(err) {
+			if err := os.Mkdir("./resume", 0755); err != nil {
+				log.Fatalf("Error creating directory ./resume: %v", err)
+			}
+			outputFile, err = os.Create("./resume/resume.tex")
+			if err != nil {
+				log.Fatalf("Error creating resume.tex after creating directory: %v", err)
+			}
+		} else {
+			log.Fatalf("Error creating resume.tex: %v", err)
+		}
 	}
 	defer outputFile.Close()
 
@@ -322,5 +349,4 @@ func main() {
 
 	log.Println("resume.tex created successfully.")
 }
-
 

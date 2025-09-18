@@ -10,7 +10,7 @@ import {
   Language,
   Interest,
   Reference,
-  Custom,
+  CustomSection,
   Config,
   SlugMap,
 } from './fields';
@@ -27,7 +27,7 @@ export interface ProfileSectionsWeb {
     | Language
     | Interest
     | Reference
-    | Custom[]
+    | CustomSection[]
     | undefined;
   work?: Work;
   education?: Education;
@@ -39,7 +39,7 @@ export interface ProfileSectionsWeb {
   languages?: Language;
   interests?: Interest;
   references?: Reference;
-  custom?: Custom[];
+  custom?: CustomSection[];
 }
 
 export interface ProfileSectionsWebSkeleton {
@@ -55,4 +55,3 @@ export interface ProfileWeb extends ProfileSectionsWeb {
   basics: Basics;
   slugMap: SlugMap;
 }
-

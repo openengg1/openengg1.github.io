@@ -8,13 +8,12 @@ on:
 
 jobs:
 
-  build-linux:
+  build-and-deploy:
 
     strategy:
       matrix:
         os: [ubuntu-latest]
         node-version: ['14.x']
-        go: ['1.18']
 
     runs-on: ${{ matrix.os }}
 
@@ -26,177 +25,31 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: yarn install and build with spa-github-pages
+    - name: Install dependencies and build web app
       run: |
         cp spa-github-pages/index.html public/index.html
         yarn install
         yarn run build
         cp spa-github-pages/404.html build/
 
-    - uses: actions/upload-artifact@v4
-      with:
-        name: web-build-gh-pages
-        path: build/
+    - name: Generate resume source files
+      run: yarn run build:resume
 
-    - uses: actions/setup-go@v5
-      with:
-        go-version: ${{ matrix.go }}
-        
-    - name: Generate TeX file for resume
-      run: |
-        yarn run build:resume-json
-        cd resume
-        go run main.go
-
-    - uses: actions/upload-artifact@v4
-      with:
-        name: resume-tex-ubuntu
-        path: ./resume/resume/
-
-  build-macos:
-
-    strategy:
-      matrix:
-        os: [macos-latest]
-        node-version: ['14.x']
-        go: ['1.18']
-
-    runs-on: ${{ matrix.os }}
-
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Use node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-
-    - name: yarn install and build
-      run: |
-        yarn install
-        yarn run build
-
-    - uses: actions/setup-go@v5
-      with:
-        go-version: ${{ matrix.go }}
-    - name: Generate TeX file for resume
-      run: |
-        yarn run build:resume-json
-        cd resume
-        go run main.go
-
-    - uses: actions/upload-artifact@v4
-      with:
-        name: resume-tex-macos
-        path: ./resume/resume/
-      
-  build-resume-linux:
-    needs: [build-linux]
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Download TeX files
-      uses: actions/download-artifact@v4
-      with:
-        name: resume-tex-ubuntu
-    - name: TeX to pdf on Linux
+    - name: Compile Resume PDF
       uses: xu-cheng/latex-action@v3
       with:
-        root_file: ./resume.tex
+        root_file: resume/resume.tex
         latexmk_use_xelatex: true
-    - uses: actions/upload-artifact@v4
-      with:
-        name: resume-ubuntu
-        path: ./*
 
-  build-resume-macos:
-    needs: [build-linux, build-macos]
-
-    runs-on: macos-latest
-
-    steps:
-    - name: Download TeX files
-      uses: actions/download-artifact@v4
-      with:
-        name: resume-tex-macos
-    - name: Build TeX files
+    - name: Prepare deployment folder
       run: |
-        brew install --cask mactex-no-gui
-        eval "$(/usr/libexec/path_helper)"
-        xelatex resume.tex
-    - uses: actions/upload-artifact@v4
-      with:
-        name: resume-macos
-        path: ./*
+        mkdir -p build/files/resume
+        cp resume/resume.pdf build/files/resume/resume.pdf
 
-  deploy-from-linux-build:
-    needs: [build-resume-linux]
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        persist-credentials: false
-    - name: Update branch deployment_platforms with main
+    - name: Deploy to gh-pages
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        branch: deployment_platforms
-        folder: .
-    - name: Download artifacts
-      uses: actions/download-artifact@v4
-    - name: Prepare gh-pages
-      run: |
-        mkdir -p gh-pages
-        cp -r web-build-gh-pages/* gh-pages/
-        mkdir -p gh-pages/files/resume
-        cp -r resume-ubuntu/* gh-pages/files/resume/
-    - name: Push to gh-pages
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        branch: gh-pages
-        folder: gh-pages
-    - name: Update _profile of deployment_platforms branch with resume
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        branch: deployment_platforms
-        folder: resume-ubuntu
-        target_folder: _profile/files/resume
-
-  deploy-from-macos-build:
-    needs: [build-resume-macos]
-
-    runs-on: macos-latest
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        persist-credentials: false
-    - name: Download artifacts
-      uses: actions/download-artifact@v4
-    - name: Prepare gh-pages-mac
-      run: |
-        mkdir -p gh-pages-mac
-        cp -r web-build-gh-pages/* gh-pages-mac/
-        mkdir -p gh-pages-mac/files/resume
-        cp -r resume-macos/* gh-pages-mac/files/resume/
-    - name: Push to gh-pages-mac
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        branch: gh-pages-mac
-        folder: gh-pages-mac
-    - name: Update _profile of deployment_platforms branch with resume
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        branch: deployment_platforms
-        folder: resume-macos
-        target_folder: _profile/files/resume
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: build
 
